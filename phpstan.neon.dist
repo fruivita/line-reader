@@ -1,0 +1,26 @@
+includes:
+  - ./vendor/nunomaduro/larastan/extension.neon
+  - ./vendor/phpstan/phpstan-deprecation-rules/rules.neon
+
+parameters:
+  paths:
+    - src
+    - tests
+
+  # The level 9 is the highest level
+  # https://phpstan.org/user-guide/rule-levels
+  level: 5
+
+  # https://phpstan.org/user-guide/ignoring-errors
+  ignoreErrors:
+    -
+      message: '#Undefined variable: \$this#'
+      path: tests/*
+
+  tmpDir: build/phpstan
+
+  checkOctaneCompatibility: true
+
+  checkModelProperties: true
+
+  checkMissingIterableValueType: false
