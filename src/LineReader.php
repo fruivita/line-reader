@@ -122,7 +122,7 @@ class LineReader implements IReadable
 
         $iterator = new \LimitIterator($this->read(), $offset, $per_page);
 
-        foreach($iterator as $key => $line) {
+        foreach ($iterator as $key => $line) {
             $collection->put($key + 1, $line);
         }
 

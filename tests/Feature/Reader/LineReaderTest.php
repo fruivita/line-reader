@@ -9,7 +9,7 @@ use FruiVita\LineReader\Exceptions\FileNotReadableException;
 use FruiVita\LineReader\Facades\LineReader;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->total_lines = 100;
     $this->test_file = __DIR__ . DIRECTORY_SEPARATOR . 'test_file.txt';
 
@@ -19,17 +19,16 @@ beforeEach(function() {
 
     $file = new \SplFileObject($this->test_file, 'w');
 
-    foreach(range(1, $this->total_lines) as $line) {
+    foreach (range(1, $this->total_lines) as $line) {
         if ($line != $this->total_lines) {
             $file->fwrite("Line {$line}" . PHP_EOL);
-        }
-        else {
+        } else {
             $file->fwrite("Line {$line}");
         }
     }
 });
 
-afterAll(function(){
+afterAll(function () {
     unlink(__DIR__ . DIRECTORY_SEPARATOR . 'test_file.txt');
 });
 
@@ -52,7 +51,7 @@ test('throws exception if per_page is lower then 1 in the readPaginatedLines met
     )->toThrow(\InvalidArgumentException::class);
 })->with([
     0,
-    -1
+    -1,
 ]);
 
 test('throws exception if page is lower then 1 in the readPaginatedLines method', function ($value) {
@@ -61,7 +60,7 @@ test('throws exception if page is lower then 1 in the readPaginatedLines method'
     )->toThrow(\InvalidArgumentException::class);
 })->with([
     0,
-    -1
+    -1,
 ]);
 
 // Happy path
@@ -100,7 +99,7 @@ test('read all lines with readLines', function () {
             expect($line)->toBe('Line 1');
         }
 
-        $line_count++;
+        ++$line_count;
     }
 
     expect($result)->toBeInstanceOf(\Generator::class)
@@ -176,16 +175,15 @@ CONTENT;
 
     expect($result)->toBeInstanceOf(\Generator::class)
     ->and(iterator_to_array($result))->toBe([
-        0 => "",
-        1 => "",
-        2 => "Line 1",
-        3 => "",
-        4 => "",
-        5 => "Line 4",
-        6 => "Line 5",
-        7 => "",
-        8 => "",
-
+        0 => '',
+        1 => '',
+        2 => 'Line 1',
+        3 => '',
+        4 => '',
+        5 => 'Line 4',
+        6 => 'Line 5',
+        7 => '',
+        8 => '',
     ]);
 
     unlink($test_file);
@@ -211,10 +209,10 @@ CONTENT;
 
     expect($result)->toBeInstanceOf(LengthAwarePaginator::class)
     ->and(iterator_to_array($result))->toBe([
-        5 => "",
-        6 => "Line 4",
-        7 => "Line 5",
-        8 => "",
+        5 => '',
+        6 => 'Line 4',
+        7 => 'Line 5',
+        8 => '',
     ]);
 
     unlink($test_file);

@@ -23,12 +23,12 @@ interface IReadable
      * Reads the given file in a paginated way.
      *
      * @param string $file_path full path of the file to be read
-     * @param int $per_page
-     * @param int $page
+     * @param int    $per_page
+     * @param int    $page
      * @param string $page_name
      *
      * @throws \FruiVita\LineReader\Exceptions\FileNotReadableException
-     * @throws \InvalidArgumentException $per_page < 1 || $page < 1
+     * @throws \InvalidArgumentException                                $per_page < 1 || $page < 1
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
