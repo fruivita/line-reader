@@ -106,16 +106,6 @@ test('read first page in readPaginatedLines method', function () {
     ->and($result->last())->toBe('Line 15');
 });
 
-test('read first page in readPaginatedLines method', function () {
-    $per_page = 15;
-    $result = LineReader::readPaginatedLines($this->test_file, $per_page, 1);
-
-    expect($result)->toBeInstanceOf(LengthAwarePaginator::class)
-    ->and($result)->toHaveCount($per_page)
-    ->and($result->first())->toBe('Line 1')
-    ->and($result->last())->toBe('Line 15');
-});
-
 test('read second page in readPaginatedLines method', function () {
     $per_page = 15;
     $result = LineReader::readPaginatedLines($this->test_file, $per_page, 2);
@@ -134,4 +124,14 @@ test('read incomplete last page in readPaginatedLines method', function () {
     ->and($result)->toHaveCount(10)
     ->and($result->first())->toBe('Line 91')
     ->and($result->last())->toBe('Line 100');
+});
+
+test('item key in the collection is the position of the line read from the file in the readPaginatedLines method.', function () {
+    $per_page = 15;
+    $result = LineReader::readPaginatedLines($this->test_file, $per_page, 7);
+
+    expect($result)->toBeInstanceOf(LengthAwarePaginator::class)
+    ->and($result)->toHaveCount(10)
+    ->and($result->get(91))->toBe('Line 91')
+    ->and($result->get(100))->toBe('Line 100');
 });
