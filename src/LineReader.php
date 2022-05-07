@@ -5,7 +5,6 @@ namespace FruiVita\LineReader;
 use FruiVita\LineReader\Contracts\IReadable;
 use FruiVita\LineReader\Exceptions\FileNotReadableException;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
 class LineReader implements IReadable
 {
@@ -113,7 +112,7 @@ class LineReader implements IReadable
      * @param int $per_page
      * @param int $page
      *
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     private function readPage(int $per_page, int $page)
     {
