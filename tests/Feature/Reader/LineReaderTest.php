@@ -2,7 +2,7 @@
 
 /**
  * @see https://pestphp.com/docs/
- * @see https://laravel.com/docs/mocking
+ * @see https://www.php.net/manual/en/language.types.string.php#language.types.string.syntax.heredoc
  */
 
 use FruiVita\LineReader\Exceptions\FileNotReadableException;
@@ -65,7 +65,7 @@ test('throws exception if page is lower then 1 in the readPaginatedLines method'
 ]);
 
 // Happy path
-test('read empty files', function () {
+test('read empty files with readLines', function () {
     $test_file = __DIR__ . DIRECTORY_SEPARATOR . 'empty_file.txt';
     (new \SplFileObject($test_file, 'w'))->fwrite('');
 
@@ -77,7 +77,19 @@ test('read empty files', function () {
     unlink($test_file);
 });
 
-test('read all lines', function () {
+test('read empty files with readPaginatedLines', function () {
+    $test_file = __DIR__ . DIRECTORY_SEPARATOR . 'empty_file.txt';
+    (new \SplFileObject($test_file, 'w'))->fwrite('');
+
+    $result = LineReader::readPaginatedLines($test_file, 15, 1);
+
+    expect($result)->toHaveCount(1)
+    ->and($result->first())->toBeEmpty();
+
+    unlink($test_file);
+});
+
+test('read all lines with readLines', function () {
     $result = LineReader::readLines($this->test_file);
 
     $line_count = 0;
@@ -126,7 +138,15 @@ test('read incomplete last page in readPaginatedLines method', function () {
     ->and($result->last())->toBe('Line 100');
 });
 
-test('item key in the collection is the position of the line read from the file in the readPaginatedLines method.', function () {
+test('nonexistent page is read without throwing exception', function () {
+    $per_page = 15;
+    $result = LineReader::readPaginatedLines($this->test_file, $per_page, 10);
+
+    expect($result)->toBeInstanceOf(LengthAwarePaginator::class)
+    ->and($result)->toHaveCount(0);
+});
+
+test('item key in the collection is the position of the line read from the file in the readPaginatedLines method', function () {
     $per_page = 15;
     $result = LineReader::readPaginatedLines($this->test_file, $per_page, 7);
 
@@ -134,4 +154,68 @@ test('item key in the collection is the position of the line read from the file 
     ->and($result)->toHaveCount(10)
     ->and($result->get(91))->toBe('Line 91')
     ->and($result->get(100))->toBe('Line 100');
+});
+
+test('new blank lines above, in the middle and at the end of the file with readLines', function () {
+    $test_file = __DIR__ . DIRECTORY_SEPARATOR . 'blank_lines_test.txt';
+    $content = <<<CONTENT
+
+
+Line 1
+
+
+Line 4
+Line 5
+
+
+CONTENT;
+
+    (new \SplFileObject($test_file, 'w'))->fwrite($content);
+
+    $result = LineReader::readLines($test_file);
+
+    expect($result)->toBeInstanceOf(\Generator::class)
+    ->and(iterator_to_array($result))->toBe([
+        0 => "",
+        1 => "",
+        2 => "Line 1",
+        3 => "",
+        4 => "",
+        5 => "Line 4",
+        6 => "Line 5",
+        7 => "",
+        8 => "",
+
+    ]);
+
+    unlink($test_file);
+});
+
+test('new blank lines above, in the middle and at the end of the file with readPaginatedLines', function () {
+    $test_file = __DIR__ . DIRECTORY_SEPARATOR . 'blank_lines_test.txt';
+    $content = <<<CONTENT
+
+
+Line 1
+
+
+Line 4
+Line 5
+
+
+CONTENT;
+
+    (new \SplFileObject($test_file, 'w'))->fwrite($content);
+
+    $result = LineReader::readPaginatedLines($test_file, 4, 2);
+
+    expect($result)->toBeInstanceOf(LengthAwarePaginator::class)
+    ->and(iterator_to_array($result))->toBe([
+        5 => "",
+        6 => "Line 4",
+        7 => "Line 5",
+        8 => "",
+    ]);
+
+    unlink($test_file);
 });
