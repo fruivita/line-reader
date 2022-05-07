@@ -74,6 +74,7 @@ class LineReader implements IReadable
     private function setWorkingFile(string $file_path)
     {
         $this->file = new \SplFileObject($file_path);
+
         $this->file->setFlags(\SplFileObject::DROP_NEW_LINE);
     }
 
@@ -120,14 +121,10 @@ class LineReader implements IReadable
 
         $collection = collect();
 
-        for ($i = $offset; $i < $offset + $per_page; ++$i) {
-            $this->file->seek($i);
+        $iterator = new \LimitIterator($this->read(), $offset, $per_page);
 
-            if ($this->file->eof()) {
-                break;
-            }
-
-            $collection->put($i + 1, $this->file->current());
+        foreach($iterator as $key => $line) {
+            $collection->put($key + 1, $line);
         }
 
         return $collection;
