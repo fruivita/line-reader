@@ -65,7 +65,7 @@ jobs:
           composer update --${{ matrix.stability }} --prefer-stable --no-interaction --no-progress
 
       - name: Execute tests
-        run: ./vendor/bin/pest --coverage --colors=always --stop-on-failure --exclude-group=integration
+        run: ./vendor/bin/pest --coverage --colors=always --stop-on-failure
 
       # - name: Upload coverage to Code Climate
       #   uses: paambaati/codeclimate-action@v3.0.0
