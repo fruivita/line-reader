@@ -40,6 +40,9 @@ jobs:
 
     steps:
 
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
@@ -67,9 +70,9 @@ jobs:
       - name: Execute tests
         run: ./vendor/bin/pest --coverage --colors=always --stop-on-failure
 
-      # - name: Upload coverage to Code Climate
-      #   uses: paambaati/codeclimate-action@v3.0.0
-      #   env:
-      #     CC_TEST_REPORTER_ID: ${{ secrets.LINE_READER_CC_TEST_REPORTER_ID }}
-      #   with:
-      #     debug: true
+      - name: Upload coverage to Code Climate
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.LINE_READER_CC_TEST_REPORTER_ID }}
+        with:
+          debug: true
