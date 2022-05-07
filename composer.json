@@ -20,7 +20,9 @@
     ],
     "homepage": "https://github.com/fruivita/line-reader",
     "require": {
-        "php": "^8.0"
+        "php": "^8.0",
+        "illuminate/pagination": "^9.11",
+        "illuminate/support": "^9.11"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
