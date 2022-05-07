@@ -1,12 +1,13 @@
 {
     "name": "fruivita/line-reader",
-    "description": "Line reader for Laravel applications",
+    "description": "Read large files, line by line, without causing memory overflow for Laravel applications.",
     "license": "MIT",
     "type": "library",
     "keywords": [
         "fruivita",
         "laravel",
         "reader",
+        "file-reader",
         "line-reader",
         "php"
     ],
