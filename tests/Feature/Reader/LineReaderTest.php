@@ -7,7 +7,7 @@
 
 use FruiVita\LineReader\Exceptions\FileNotReadableException;
 use FruiVita\LineReader\Facades\LineReader;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 beforeEach(function() {
     $this->total_lines = 100;
@@ -100,28 +100,38 @@ test('read first page in readPaginatedLines method', function () {
     $per_page = 15;
     $result = LineReader::readPaginatedLines($this->test_file, $per_page, 1);
 
-    expect($result)->toBeInstanceOf(Collection::class)
+    expect($result)->toBeInstanceOf(LengthAwarePaginator::class)
     ->and($result)->toHaveCount($per_page)
-    ->and($result->get(1))->toBe('Line 1')
-    ->and($result->get(15))->toBe('Line 15');
+    ->and($result->first())->toBe('Line 1')
+    ->and($result->last())->toBe('Line 15');
+});
+
+test('read first page in readPaginatedLines method', function () {
+    $per_page = 15;
+    $result = LineReader::readPaginatedLines($this->test_file, $per_page, 1);
+
+    expect($result)->toBeInstanceOf(LengthAwarePaginator::class)
+    ->and($result)->toHaveCount($per_page)
+    ->and($result->first())->toBe('Line 1')
+    ->and($result->last())->toBe('Line 15');
 });
 
 test('read second page in readPaginatedLines method', function () {
     $per_page = 15;
     $result = LineReader::readPaginatedLines($this->test_file, $per_page, 2);
 
-    expect($result)->toBeInstanceOf(Collection::class)
+    expect($result)->toBeInstanceOf(LengthAwarePaginator::class)
     ->and($result)->toHaveCount($per_page)
-    ->and($result->get(16))->toBe('Line 16')
-    ->and($result->get(30))->toBe('Line 30');
+    ->and($result->first())->toBe('Line 16')
+    ->and($result->last())->toBe('Line 30');
 });
 
 test('read incomplete last page in readPaginatedLines method', function () {
     $per_page = 15;
     $result = LineReader::readPaginatedLines($this->test_file, $per_page, 7);
 
-    expect($result)->toBeInstanceOf(Collection::class)
+    expect($result)->toBeInstanceOf(LengthAwarePaginator::class)
     ->and($result)->toHaveCount(10)
-    ->and($result->get(91))->toBe('Line 91')
-    ->and($result->get(100))->toBe('Line 100');
+    ->and($result->first())->toBe('Line 91')
+    ->and($result->last())->toBe('Line 100');
 });

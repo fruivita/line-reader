@@ -25,11 +25,12 @@ interface IReadable
      * @param string $file_path full path of the file to be read
      * @param int $per_page
      * @param int $page
+     * @param string $page_name
      *
      * @throws \FruiVita\LineReader\Exceptions\FileNotReadableException
      * @throws \InvalidArgumentException $per_page < 1 || $page < 1
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function readPaginatedLines(string $file_path, int $per_page, int $page);
+    public function readPaginatedLines(string $file_path, int $per_page, int $page, string $page_name = 'page');
 }

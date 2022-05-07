@@ -4,6 +4,8 @@ namespace FruiVita\LineReader;
 
 use FruiVita\LineReader\Contracts\IReadable;
 use FruiVita\LineReader\Exceptions\FileNotReadableException;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class LineReader implements IReadable
 {
@@ -29,37 +31,24 @@ class LineReader implements IReadable
     /**
      * {@inheritdoc}
      */
-    public function readPaginatedLines(string $file_path, int $per_page, int $page)
+    public function readPaginatedLines(string $file_path, int $per_page, int $page, string $page_name = 'page')
     {
         throw_if(! $this->isReadable($file_path), FileNotReadableException::class);
         throw_if(($per_page < 1 || $page < 1), \InvalidArgumentException::class);
 
         $this->setWorkingFile($file_path);
 
-        $offset = ($page - 1) * $per_page;
-
-        $collection = collect();
-
-        for ($i = $offset; $i < $offset + $per_page; ++$i) {
-            $this->file->seek($i);
-
-            if ($this->file->eof()) {
-                break;
-            }
-
-            $collection->put($i + 1, $this->file->current());
-        }
-
-        // Seek for end of file
-        $this->file->seek(PHP_INT_MAX);
-
-        return $collection;
-        // ->paginate(
-        //     $this->file->key() + 1,
-        //     $per_page,
-        //     $page
-        // );
-
+        return new LengthAwarePaginator(
+            items: $this->readPage($per_page, $page),
+            total: $this->totalLines(),
+            perPage: $per_page,
+            currentPage: $page,
+            options: [
+                'path' => LengthAwarePaginator::resolveCurrentPath(),
+                'pageName' => $page_name,
+                'query' => LengthAwarePaginator::resolveQueryString(),
+            ]
+        );
     }
 
     /**
@@ -99,5 +88,48 @@ class LineReader implements IReadable
             yield $this->file->current();
             $this->file->next();
         }
+    }
+
+    /**
+     * Total number of lines in the file.
+     *
+     * @return int
+     */
+    private function totalLines()
+    {
+        // Seek for end of file
+        $this->file->seek(PHP_INT_MAX);
+
+        return $this->file->key() + 1;
+    }
+
+    /**
+     * Read a certain page from file and return as collection.
+     *
+     * The index of the item in the collection is the position of the line in
+     * the file.
+     *
+     * @param int $per_page
+     * @param int $page
+     *
+     * @return Collection
+     */
+    private function readPage(int $per_page, int $page)
+    {
+        $offset = ($page - 1) * $per_page;
+
+        $collection = collect();
+
+        for ($i = $offset; $i < $offset + $per_page; ++$i) {
+            $this->file->seek($i);
+
+            if ($this->file->eof()) {
+                break;
+            }
+
+            $collection->put($i + 1, $this->file->current());
+        }
+
+        return $collection;
     }
 }
