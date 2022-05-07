@@ -4,6 +4,7 @@ includes:
 
 parameters:
   paths:
+    - lang
     - src
     - tests
 
