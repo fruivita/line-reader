@@ -26,6 +26,15 @@
         "illuminate/pagination": "^9.11",
         "illuminate/support": "^9.11"
     },
+    "require-dev": {
+        "nunomaduro/larastan": "^2.1",
+        "orchestra/testbench": "^7.4",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.2",
+        "phpstan/phpstan": "^1.6",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpunit/phpunit": "^9.5"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
@@ -60,14 +69,5 @@
         "analyse": "vendor/bin/phpstan analyse --ansi --memory-limit 1G --error-format=github --debug",
         "coverage": "composer test -- --coverage",
         "test": "vendor/bin/pest --colors=always --stop-on-failure"
-    },
-    "require-dev": {
-        "nunomaduro/larastan": "^2.1",
-        "orchestra/testbench": "^7.4",
-        "pestphp/pest": "^1.21",
-        "pestphp/pest-plugin-laravel": "^1.2",
-        "phpstan/phpstan": "^1.6",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpunit/phpunit": "^9.5"
     }
 }
