@@ -307,7 +307,7 @@ The following list contains identified and approved improvement needs that will 
 
   - [illuminate/collections](https://github.com/illuminate/collections)
 
-  - [illuminate/database](https://github.com/illuminate/database)
+  - [illuminate/pagination](https://github.com/illuminate/pagination)
 
   - [illuminate/support](https://github.com/illuminate/support)
 
