@@ -10,24 +10,22 @@
 [![GitHub issues](https://img.shields.io/github/issues/fruivita/line-reader?logo=github)](/../../issues)
 ![GitHub repo size](https://img.shields.io/github/repo-size/fruivita/line-reader?logo=github)
 [![Packagist Total Downloads](https://img.shields.io/packagist/dt/fruivita/line-reader?logo=packagist)](https://packagist.org/packages/fruivita/line-reader)
-[![GitHub](https://img.shields.io/github/license/fruivita/line-reader?logo=github)](LICENSE.md)
+[![GitHub](https://img.shields.io/github/license/fruivita/line-reader?logo=github)](../LICENSE.md)
 
 Read large files, line by line, without causing memory overflow for **[Laravel](https://laravel.com/docs)** applications.
 
 It is also possible to paginate the contents of the file, again, without having to load it entirely into memory thanks to php's **[LimitIterator](https://www.php.net/manual/en/class.limititerator.php)**.
 
-This package can be used by anyone and in any application, respecting the [licensing](#license) terms.
-
-Heavily inspired by the [bcremer/LineReader](https://github.com/bcremer/LineReader)❤️ package.
+❤️ Heavily inspired by the [bcremer/LineReader](https://github.com/bcremer/LineReader) package.
 
 ```php
 use FruiVita\LineReader\Facades\LineReader;
 
-$generator = LineReader::readLines(string $file_path);
+$generator = LineReader::readLines($file_path);
 
 // or
 
-$length_aware_paginator = LineReader::readPaginatedLines(string $file_path, int $per_page, int $page);
+$length_aware_paginator = LineReader::readPaginatedLines($file_path, $per_page, $page);
 ```
 
 &nbsp;
@@ -68,7 +66,7 @@ $length_aware_paginator = LineReader::readPaginatedLines(string $file_path, int 
 
 ## Notes
 
-⭐ Internally, this package reads the file through the php **[SplFileObject](https://www.php.net/manual/en/class.splfileobject.php)** class. In the specific case of pagination, the **[LimitIterator](https://www.php.net/manual/en/class.limititerator.php)** is used to delimit the beginning and end of the content to be read.
+⭐ Internally, this package reads the file contents using php's **[SplFileObject](https://www.php.net/manual/en/class.splfileobject.php)** class. In the specific case of pagination, the **[LimitIterator](https://www.php.net/manual/en/class.limititerator.php)** is used to delimit the beginning and end of the content to be read.
 
 ⬆️ [Back](#table-of-contents)
 
@@ -80,7 +78,7 @@ $length_aware_paginator = LineReader::readPaginatedLines(string $file_path, int 
 
     PHP ^8.0
 
-    [Extensões](https://getcomposer.org/doc/03-cli.md#check-platform-reqs)
+    [Extensions](https://getcomposer.org/doc/03-cli.md#check-platform-reqs)
 
     ```bash
     composer check-platform-reqs
@@ -116,8 +114,6 @@ $length_aware_paginator = LineReader::readPaginatedLines(string $file_path, int 
 
     >This package already has translations for **en** and **pt-br**.
 
-    &nbsp;
-
 ⬆️ [Back](#table-of-contents)
 
 &nbsp;
@@ -131,7 +127,7 @@ $length_aware_paginator = LineReader::readPaginatedLines(string $file_path, int 
 
     public function example()
     {
-        foreach (LineReader::readLines(string $file_path) as $line_number => $line_content)
+        foreach (LineReader::readLines($file_path) as $line_number => $line_content)
         {
             // $line_number is 1 when reading the 1st line, 2 when reading the 2nd line, and so on.
             // $line_content string with the contents of the line.
@@ -139,13 +135,11 @@ $length_aware_paginator = LineReader::readPaginatedLines(string $file_path, int 
     }
     ```
 
-    Reading line by line exposes the following method:
-
     &nbsp;
 
-    ✏️ **readLines**
+    LineReader exposes the following method to read the file line by line:
 
-    Signature and usage: Reads the informed file line by line.
+    ✏️ **readLines**
 
     ```php
     use FruiVita\LineReader\Facades\LineReader;
@@ -178,18 +172,17 @@ $length_aware_paginator = LineReader::readPaginatedLines(string $file_path, int 
 
         $length_aware_paginator = LineReader::readPaginatedLines(string $file_path, int $per_page, int $page);
         
-        // The index of the items in the collection respects their position in the file, that is,
-        // in the example above the first item on page 2 will have position 16, since it is the
-        // 16th line of the file and the last item on page 2 will have index 30, since it is the
-        // 30th line.
+        // The index of the items in the collection respects their position in the file, that is, in the example
+        // above the 1st item on page 2 will have index 16, since it is the 16th line of the file and the last
+        // item on page 2 will have index 30, since it is the 30th line of the file.
     }
     ```
 
     &nbsp;
 
-    ✏️ **readPaginatedLines**
+    LineReader exposes the following method to read the file by page:
 
-    Signature and usage: Reads the informed file by page.
+    ✏️ **readPaginatedLines**
 
     ```php
     use FruiVita\LineReader\Facades\LineReader;
@@ -215,9 +208,9 @@ $length_aware_paginator = LineReader::readPaginatedLines(string $file_path, int 
     - **readPaginatedLines** throws **\FruiVita\LineReader\Exceptions\FileNotReadableException** if don't have read permission on the file or it can't be found
     - **readPaginatedLines** throws **\InvalidArgumentException** if per_page or page is less than 1
 
-    ⬆️ [Back](#table-of-contents)
+⬆️ [Back](#table-of-contents)
 
-    &nbsp;
+&nbsp;
 
 ## Testing and Continuous Integration
 
@@ -251,7 +244,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for more details on how to contribute
 
 To ensure that everyone is welcome to contribute to this open-source project, please read and follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-⬆️ [Back](#conteúdo)
+⬆️ [Back](#table-of-contents)
 
 &nbsp;
 
@@ -279,7 +272,7 @@ The latest version will receive support and updates whenever the need arises. Th
 
 ## Roadmap
 
-> ✨ Any new ideas?!?! Start **[a discussion](https://github.com/orgs/fruivita/discussions/new?category=ideas)**.
+> ✨ Any new ideas?!?! Start **[a discussion](https://github.com/orgs/fruivita/discussions/new?category=ideas&title=[LineReader])**.
 
 The following list contains identified and approved improvement needs that will be implemented in the first window of opportunity.
 
