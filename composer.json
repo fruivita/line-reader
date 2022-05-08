@@ -22,6 +22,7 @@
     "homepage": "https://github.com/fruivita/line-reader",
     "require": {
         "php": "^8.0",
+        "illuminate/collections": "^9.11",
         "illuminate/pagination": "^9.11",
         "illuminate/support": "^9.11"
     },
