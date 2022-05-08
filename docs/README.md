@@ -12,8 +12,6 @@
 [![Packagist Total Downloads](https://img.shields.io/packagist/dt/fruivita/line-reader?logo=packagist)](https://packagist.org/packages/fruivita/line-reader)
 [![GitHub](https://img.shields.io/github/license/fruivita/line-reader?logo=github)](../LICENSE.md)
 
-Read large files, line by line, without causing memory overflow for **[Laravel](https://laravel.com/docs)** applications.
-
 This package, for **[Laravel](https://laravel.com/docs)** applications, allows you to read the contents of huge files without killing your server, that is, without having to load all the contents at once in memory causing an ***out-of-memory errors***.
 
 The strategy used here, thanks to php's **[SplFileObject](https://www.php.net/manual/en/class.splfileobject.php)**, is to read the contents of the file line by line optimizing the use of server resources and, most importantly, in an efficient way.
