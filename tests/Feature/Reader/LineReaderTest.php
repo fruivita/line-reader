@@ -160,11 +160,11 @@ test('new blank lines above, in the middle and at the end of the file with readL
     $content = <<<CONTENT
 
 
-Line 1
+Line 3
 
 
-Line 4
-Line 5
+Line 6
+Line 7
 
 
 CONTENT;
@@ -177,11 +177,11 @@ CONTENT;
     ->and(iterator_to_array($result))->toBe([
         0 => '',
         1 => '',
-        2 => 'Line 1',
+        2 => 'Line 3',
         3 => '',
         4 => '',
-        5 => 'Line 4',
-        6 => 'Line 5',
+        5 => 'Line 6',
+        6 => 'Line 7',
         7 => '',
         8 => '',
     ]);
@@ -194,11 +194,11 @@ test('new blank lines above, in the middle and at the end of the file with readP
     $content = <<<CONTENT
 
 
-Line 1
+Line 3
 
 
-Line 4
-Line 5
+Line 6
+Line 7
 
 
 CONTENT;
@@ -209,10 +209,10 @@ CONTENT;
 
     expect($result)->toBeInstanceOf(LengthAwarePaginator::class)
     ->and(iterator_to_array($result))->toBe([
-        5 => '',
-        6 => 'Line 4',
-        7 => 'Line 5',
-        8 => '',
+        4 => '',
+        5 => 'Line 6',
+        6 => 'Line 7',
+        7 => '',
     ]);
 
     unlink($test_file);
