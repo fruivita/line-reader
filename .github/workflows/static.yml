@@ -8,8 +8,6 @@
 #
 # PHPStan: static analysis https://phpstan.org/
 # PHP CS Fixer: php code pattern https://github.com/FriendsOfPHP/PHP-CS-Fixer
-#
-#
 
 name: Static Analysis
 
