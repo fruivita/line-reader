@@ -14,9 +14,9 @@
 
 This package, for **[Laravel](https://laravel.com/docs)** applications, allows you to read the contents of huge files without killing your server, that is, without having to load all the contents at once in memory causing an ***out-of-memory errors***.
 
-The strategy used here, thanks to php's **[SplFileObject](https://www.php.net/manual/en/class.splfileobject.php)** and **[Generators](https://www.php.net/manual/en/language.generators.overview.php)**, is to read the contents of the file line by line optimizing the use of server resources and, most importantly, in an efficient way.
+The strategy used here is to read the contents of the file, line by line, optimizing the use of server resources and, most importantly, in an efficient way.
 
-It is also possible to paginate the contents of the file, again, without having to load it entirely into memory thanks to php's **[LimitIterator](https://www.php.net/manual/en/class.limititerator.php)**.
+It is also possible to paginate the contents of the file, again, without having to load it entirely into memory, except the page itself.
 
 ```php
 use FruiVita\LineReader\Facades\LineReader;
@@ -66,7 +66,7 @@ $length_aware_paginator = LineReader::readPaginatedLines($file_path, $per_page, 
 
 ## Notes
 
-⭐ Internally, this package reads the file contents using php's **[SplFileObject](https://www.php.net/manual/en/class.splfileobject.php)** and **[Generators](https://www.php.net/manual/en/language.generators.overview.php)** classes. In the specific case of pagination, the **[LimitIterator](https://www.php.net/manual/en/class.limititerator.php)** is used to delimit the beginning and end of the content to be read.
+⭐ Internally, this package reads the file contents using php's **[SplFileObject](https://www.php.net/manual/en/class.splfileobject.php)** and **[Generators](https://www.php.net/manual/en/language.generators.overview.php)** classes. In the specific case of pagination, the **[LimitIterator](https://www.php.net/manual/en/class.limititerator.php)** class is used to delimit the beginning and end of the content to be read.
 
 ❤️ Heavily inspired by the [bcremer/LineReader](https://github.com/bcremer/LineReader) package.
 
@@ -129,10 +129,10 @@ $length_aware_paginator = LineReader::readPaginatedLines($file_path, $per_page, 
 
     public function example()
     {
-        foreach (LineReader::readLines($file_path) as $line_number => $line_content)
+        foreach (LineReader::readLines($file_path) as $key => $line)
         {
-            // $line_number is 1 when reading the 1st line, 2 when reading the 2nd line, and so on.
-            // $line_content string with the contents of the line.
+            // $key is 0 when reading the 1st line, 1 when reading the 2nd line, and so on.
+            // $line is a string with the contents of the line.
         }
     }
     ```
@@ -176,9 +176,9 @@ $length_aware_paginator = LineReader::readPaginatedLines($file_path, $per_page, 
 
         $length_aware_paginator = LineReader::readPaginatedLines(string $file_path, int $per_page, int $page);
         
-        // The index of the items in the collection respects their position in the file, that is, in the example
-        // above the 1st item on page 2 will have index 16, since it is the 16th line of the file and the last
-        // item on page 2 will have index 30, since it is the 30th line of the file.
+        // The index of the items in the collection respects their position in the file using a zero-based index,
+        // that is, in the example above the 1st item on page 2 will have index 15, since it is the 16th line of
+        // the file and the last item on page 2 will have index 29, since it is the 30th line of the file.
     }
     ```
 

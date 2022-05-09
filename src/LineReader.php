@@ -107,7 +107,12 @@ class LineReader implements IReadable
      * Read a certain page from file and return as collection.
      *
      * The index of the item in the collection is the position of the line in
-     * the file.
+     * the file using a zero-based index, that is:
+     * - index 0 line 1
+     * - index 1 line 2
+     * - [...]
+     * - index 99 line 100
+     * - and so on
      *
      * @param int $per_page
      * @param int $page
@@ -123,7 +128,7 @@ class LineReader implements IReadable
         $iterator = new \LimitIterator($this->read(), $offset, $per_page);
 
         foreach ($iterator as $key => $line) {
-            $collection->put($key + 1, $line);
+            $collection->put($key, $line);
         }
 
         return $collection;

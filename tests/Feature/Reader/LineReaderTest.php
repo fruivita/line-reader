@@ -145,14 +145,14 @@ test('nonexistent page is read without throwing exception', function () {
     ->and($result)->toHaveCount(0);
 });
 
-test('item key in the collection is the position of the line read from the file in the readPaginatedLines method', function () {
+test('readPaginatedLines method uses a zero-based index representing the position of the line in the file', function () {
     $per_page = 15;
     $result = LineReader::readPaginatedLines($this->test_file, $per_page, 7);
 
     expect($result)->toBeInstanceOf(LengthAwarePaginator::class)
     ->and($result)->toHaveCount(10)
-    ->and($result->get(91))->toBe('Line 91')
-    ->and($result->get(100))->toBe('Line 100');
+    ->and($result->get(90))->toBe('Line 91')
+    ->and($result->get(99))->toBe('Line 100');
 });
 
 test('new blank lines above, in the middle and at the end of the file with readLines', function () {
