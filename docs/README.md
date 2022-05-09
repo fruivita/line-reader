@@ -14,7 +14,7 @@
 
 This package, for **[Laravel](https://laravel.com/docs)** applications, allows you to read the contents of huge files without killing your server, that is, without having to load all the contents at once in memory causing an ***out-of-memory errors***.
 
-The strategy used here, thanks to php's **[SplFileObject](https://www.php.net/manual/en/class.splfileobject.php)**, is to read the contents of the file line by line optimizing the use of server resources and, most importantly, in an efficient way.
+The strategy used here, thanks to php's **[SplFileObject](https://www.php.net/manual/en/class.splfileobject.php)** and **[Generators](https://www.php.net/manual/en/language.generators.overview.php)**, is to read the contents of the file line by line optimizing the use of server resources and, most importantly, in an efficient way.
 
 It is also possible to paginate the contents of the file, again, without having to load it entirely into memory thanks to php's **[LimitIterator](https://www.php.net/manual/en/class.limititerator.php)**.
 
@@ -66,7 +66,7 @@ $length_aware_paginator = LineReader::readPaginatedLines($file_path, $per_page, 
 
 ## Notes
 
-⭐ Internally, this package reads the file contents using php's **[SplFileObject](https://www.php.net/manual/en/class.splfileobject.php)** class. In the specific case of pagination, the **[LimitIterator](https://www.php.net/manual/en/class.limititerator.php)** is used to delimit the beginning and end of the content to be read.
+⭐ Internally, this package reads the file contents using php's **[SplFileObject](https://www.php.net/manual/en/class.splfileobject.php)** and **[Generators](https://www.php.net/manual/en/language.generators.overview.php)** classes. In the specific case of pagination, the **[LimitIterator](https://www.php.net/manual/en/class.limititerator.php)** is used to delimit the beginning and end of the content to be read.
 
 ❤️ Heavily inspired by the [bcremer/LineReader](https://github.com/bcremer/LineReader) package.
 
