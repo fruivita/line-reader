@@ -114,9 +114,9 @@ class LineReader implements IReadable
      * - index 99 line 100
      * - and so on
      *
-     * @param \SplFileObject $file File to be read
-     * @param int $per_page
-     * @param int $page
+     * @param \SplFileObject $file     File to be read
+     * @param int            $per_page
+     * @param int            $page
      *
      * @return \Illuminate\Support\Collection
      */
