@@ -2,11 +2,11 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/fruivita/line-reader?logo=packagist)](https://packagist.org/packages/fruivita/line-reader)
 [![GitHub Release Date](https://img.shields.io/github/release-date/fruivita/line-reader?logo=github)](/../../releases)
-[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/fruivita/line-reader/main?logo=github)](/../../commits/main)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/fruivita/line-reader/Unit%20and%20Feature%20tests/main?label=tests&logo=github)](/../../actions/workflows/tests.yml?query=branch%3Amain)
+[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/fruivita/line-reader/1.x?logo=github)](/../../commits/1.x)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/fruivita/line-reader/Unit%20and%20Feature%20tests/1.x?label=tests&logo=github)](/../../actions/workflows/tests.yml?query=branch%3A1.x)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/381e769910d3740dccfe/test_coverage)](https://codeclimate.com/github/fruivita/line-reader/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/381e769910d3740dccfe/maintainability)](https://codeclimate.com/github/fruivita/line-reader/maintainability)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/fruivita/line-reader/Static%20Analysis/main?label=code%20style&logo=github)](/../../actions/workflows/static.yml?query=branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/fruivita/line-reader/Static%20Analysis/1.x?label=code%20style&logo=github)](/../../actions/workflows/static.yml?query=branch%3A1.x)
 [![GitHub issues](https://img.shields.io/github/issues/fruivita/line-reader?logo=github)](/../../issues)
 ![GitHub repo size](https://img.shields.io/github/repo-size/fruivita/line-reader?logo=github)
 [![Packagist Total Downloads](https://img.shields.io/packagist/dt/fruivita/line-reader?logo=packagist)](https://packagist.org/packages/fruivita/line-reader)
@@ -266,7 +266,7 @@ The latest version will receive support and updates whenever the need arises. Th
 
 | Version | PHP     | Release    | End of Life |
 |---------|---------|------------|-------------|
-| 1.0     | ^8.0    | dd-mm-yyyy | dd-mm-yyyy  |
+| 1.0     | ^8.0    | 09-05-2022 | dd-mm-yyyy  |
 
 🐛 Found a bug?!?! Open an **[issue](/../../issues/new?assignees=fcno&labels=bug%2Ctriage&template=bug_report.yml&title=%5BA+concise+title+for+the+bug%5D)**.
 
