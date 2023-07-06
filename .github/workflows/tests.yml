@@ -90,7 +90,7 @@ jobs:
         if: (matrix.os == 'ubuntu-latest' && matrix.php == '8.1') == false
 
       - name: Upload coverage to Code Climate
-        uses: paambaati/codeclimate-action@v3.0.0
+        uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.LINE_READER_CC_TEST_REPORTER_ID }}
         with:
